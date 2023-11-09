@@ -12,11 +12,11 @@ public class IntegratedServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(IntegratedServiceApplication.class, args);
 	}
-	@Bean
-	CommandLineRunner runner(UserRepository repository){
-		return args -> {
-			User user = new User("abc1234","test2@gmail.com",200);
-			repository.insert(user);
-		};
-	}
+//	@Bean
+//	CommandLineRunner runner(UserRepository repository){
+//		return args -> {
+//			User user = new User("abc1234","test2@gmail.com",200);
+//			repository.insert(user);
+//		};
+//	}
 }

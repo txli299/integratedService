@@ -18,12 +18,12 @@ public class UserController {
         return "Hello" + name;
     }
 
-    @GetMapping("/allUsers")
+    @GetMapping("/user/allUsers")
     public List<User> getAllUser(){
         return userRepository.findAll();
     }
 
-    @PostMapping("/addUser")
+    @PostMapping("/user/addUser")
     public User addUser(@RequestBody User user){
         return userRepository.save(user);
     }
