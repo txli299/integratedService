@@ -24,5 +24,4 @@ public class MachineController {
         return machineRepository.save(machine);
     }
 
-
 }
