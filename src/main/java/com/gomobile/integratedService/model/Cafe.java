@@ -16,6 +16,7 @@ public class Cafe {
     private String name;
     private Coordinate coordinate;
     private List<Machine> machines;
+    private double distance;
 
     public Cafe(String name, Coordinate coordinate, List<Machine> machines) {
         this.name = name;

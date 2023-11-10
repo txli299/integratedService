@@ -23,4 +23,6 @@ public class MachineController {
     public Machine addMachine(@RequestBody Machine machine){
         return machineRepository.save(machine);
     }
+
+
 }
