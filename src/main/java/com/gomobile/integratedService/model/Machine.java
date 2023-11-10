@@ -1,23 +1,23 @@
 package com.gomobile.integratedService.model;
+
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Data
-@Document(collection =  "user")
-public class User {
+@Document(collection = "machine")
+public class Machine {
     @Id
     private String id;
-    private String uid;
     @Indexed(unique = true)
-    private String email;
-    private Integer credit;
+    private String name;
+    private MachineType type;
+    private Boolean activated;
 
-    public User(String uid, String email, Integer credit) {
-        this.uid = uid;
-        this.email = email;
-        this.credit = credit;
+    public Machine(String name, MachineType type, Boolean activated) {
+        this.name = name;
+        this.type = type;
+        this.activated = activated;
     }
 }

@@ -1,4 +1,4 @@
-package com.gomobile.integratedService.rest;
+package com.gomobile.integratedService.repo;
 
 import com.gomobile.integratedService.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
