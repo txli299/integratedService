@@ -15,13 +15,13 @@ import lombok.Data;
 public class Order {
   @Id
   private String id;
-  private String machineName;
+  private String mid;
   private LocalDateTime startTime;
   private LocalDateTime endTime;
   private boolean expired;
 
-  public Order(String machineName, LocalDateTime startTime) {
-    this.machineName = machineName;
+  public Order(String mid, LocalDateTime startTime) {
+    this.mid = mid;
     this.startTime = startTime;
     this.expired = false;
   }

@@ -17,7 +17,7 @@ public class User {
     @Indexed(unique = true)
     private String email;
     // This need to be Double!
-    private Integer credit;
+    private double credit;
     private List<Order> orders;
 
     public User(String uid, String email, Integer credit) {
