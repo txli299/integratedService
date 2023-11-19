@@ -20,7 +20,7 @@ public class User {
     private double credit;
     private List<Order> orders;
 
-    public User(String uid, String email, Integer credit) {
+    public User(String uid, String email, double credit) {
         this.uid = uid;
         this.email = email;
         this.credit = credit;

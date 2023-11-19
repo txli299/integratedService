@@ -7,6 +7,7 @@ import com.gomobile.integratedService.repo.MachineRepository;
 import com.gomobile.integratedService.repo.UserRepository;
 
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -22,6 +23,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@EnableScheduling
 public class OrderService {
   private final UserRepository _userRepository;
   private final MachineRepository _machineRepository;
@@ -44,6 +46,9 @@ public class OrderService {
         user.addOrder(newOrder);
         // Set machine to activated
         Machine machine = currMachine.get();
+        if (machine.getActivated() == true){
+          throw new IllegalArgumentException("Machine has already got activated");
+        }
         machine.setActivated(true);
 
         _machineRepository.save(machine);
@@ -140,6 +145,9 @@ public class OrderService {
       }else{
         User user = currUser.get();
         Machine machine = currMachine.get();
+        if (machine.getActivated() == true){
+          throw new IllegalArgumentException("Machine has already got activated");
+        }
         // Set machine to Activated
         machine.setActivated(true);
         _machineRepository.save(machine);
@@ -152,7 +160,7 @@ public class OrderService {
               // Update Order
               LocalDateTime endTime = LocalDateTime.now();
               userOrder.setEndTime(endTime);
-              userOrder.setExpired(false);
+              userOrder.setExpired(true);
               break;
             }
           }
