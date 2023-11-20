@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -29,6 +31,33 @@ public class UserController {
     @GetMapping("/user/allUsers")
     public List<User> getAllUser(){
         return userRepository.findAll();
+    }
+
+    @GetMapping("/user/{userId}")
+    public User getUser(@PathVariable String userId){
+        Optional<User> currUser =  userRepository.findById(userId);
+
+        if (currUser.isPresent()) {
+            return currUser.get();
+        }else{
+            throw new IllegalArgumentException("User does not exist");
+        }
+    }
+
+    @PatchMapping("/user/{userId}")
+    public User updateUser(@PathVariable String userId, @RequestBody User updatedUserDetails) {
+        Optional<User> currUserOptional = userRepository.findById(userId);
+
+        if (currUserOptional.isPresent()) {
+            User currUser = currUserOptional.get();
+
+            // Update user details with the new values
+            currUser.setCredit(currUser.getCredit() + updatedUserDetails.getCredit());
+            // Save the updated user to the database
+            return userRepository.save(currUser);
+        } else {
+            throw new IllegalArgumentException("User does not exist");
+        }
     }
 
     @PostMapping("/user/addUser")
