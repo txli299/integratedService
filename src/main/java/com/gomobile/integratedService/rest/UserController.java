@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +49,6 @@ public class UserController {
 
         if (currUserOptional.isPresent()) {
             User currUser = currUserOptional.get();
-
             // Update user details with the new values
             currUser.setCredit(currUser.getCredit() + updatedUserDetails.getCredit());
             // Save the updated user to the database
