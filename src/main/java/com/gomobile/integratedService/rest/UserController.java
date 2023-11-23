@@ -1,5 +1,7 @@
 package com.gomobile.integratedService.rest;
 
+import com.gomobile.integratedService.model.Order;
+import com.gomobile.integratedService.model.OrderDto;
 import com.gomobile.integratedService.model.User;
 import com.gomobile.integratedService.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,9 @@ public class UserController {
 
     @GetMapping("/user/{userId}")
     public User getUser(@PathVariable String userId){
-        Optional<User> currUser =  userRepository.findById(userId);
+        // Jeff, this is Dinabang Changing this line
+        // This may need to change to findByUid
+        Optional<User> currUser =  userRepository.findByUid(userId);
 
         if (currUser.isPresent()) {
             return currUser.get();
@@ -45,7 +49,9 @@ public class UserController {
 
     @PatchMapping("/user/{userId}")
     public User updateUser(@PathVariable String userId, @RequestBody User updatedUserDetails) {
-        Optional<User> currUserOptional = userRepository.findById(userId);
+        // Jeff, this is Dinabang Changing this line
+        // This may need to change to findByUid
+        Optional<User> currUserOptional = userRepository.findByUid(userId);
 
         if (currUserOptional.isPresent()) {
             User currUser = currUserOptional.get();
@@ -71,6 +77,17 @@ public class UserController {
             _OrderService.emptyUserOrders(userId);
 
             return ResponseEntity.ok("Order Empty successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error Empty order: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/user/currentOrders/{userId}")
+    public ResponseEntity<?> currentOrders(@PathVariable String userId){
+        try {
+            List<OrderDto> result = _OrderService.getCurrentOrders(userId);
+
+            return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error Empty order: " + e.getMessage());
         }
