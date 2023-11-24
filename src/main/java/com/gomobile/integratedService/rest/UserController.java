@@ -34,6 +34,16 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    @GetMapping("user/{userId}/credit")
+    public Double getCredit(@PathVariable String userId){
+        Optional<User> currUser =  userRepository.findByUid(userId);
+        if (currUser.isPresent()) {
+            return currUser.get().getCredit();
+        }else{
+            throw new IllegalArgumentException("User does not exist");
+        }
+    }
+
     @GetMapping("/user/{userId}")
     public User getUser(@PathVariable String userId){
         // Jeff, this is Dinabang Changing this line

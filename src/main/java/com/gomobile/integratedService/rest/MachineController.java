@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MachineController {
@@ -29,6 +30,16 @@ public class MachineController {
     @PostMapping("/machine/addMachine")
     public Machine addMachine(@RequestBody Machine machine){
         return machineRepository.save(machine);
+    }
+
+    @GetMapping("/machine/{mid}")
+    public Machine getMachine(@PathVariable String mid){
+        Optional<Machine> machine = machineRepository.findById(mid);
+        if(machine.isPresent()){
+            return machine.get();
+        }else{
+            throw new IllegalArgumentException("Machine does not exist");
+        }
     }
 
     @PostMapping("/machine/activate")
