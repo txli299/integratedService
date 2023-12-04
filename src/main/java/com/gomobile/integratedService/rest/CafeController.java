@@ -1,15 +1,13 @@
 package com.gomobile.integratedService.rest;
 
 import com.gomobile.integratedService.model.Cafe;
+import com.gomobile.integratedService.model.CafeDto;
 import com.gomobile.integratedService.model.Coordinate;
-import com.gomobile.integratedService.model.Machine;
 import com.gomobile.integratedService.repo.CafeRepository;
-import com.gomobile.integratedService.repo.MachineRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,6 +17,13 @@ import java.util.List;
 public class CafeController {
     @Autowired
     CafeRepository cafeRepository;
+
+    private final  CafeService cafeService;
+
+    public CafeController(CafeRepository cafeRepository, CafeService cafeService) {
+        this.cafeRepository = cafeRepository;
+        this.cafeService = cafeService;
+    }
 
     @GetMapping("/cafe/allCafes")
     public List<Cafe> getAllMachine(){
@@ -71,5 +76,24 @@ public class CafeController {
         double distance = earthRadius * c;
 
         return distance;
+    }
+
+    @PostMapping("/cafe/getCafeList")
+    public ResponseEntity<?> getCafeByDistance(@RequestBody Coordinate coordinate){
+        try{
+            return ResponseEntity.ok(cafeService.getCafeByDistance(coordinate));
+        }catch(Exception e) {
+            return ResponseEntity.status(500).body("Error Empty order: " + e.getMessage());
+        }
+
+    }
+
+    @PostMapping("cafe/getMachineDetail")
+    public ResponseEntity<?> getCafeMachine(@RequestBody CafeDto cafe, @RequestParam String type){
+        try{
+            return ResponseEntity.ok(cafeService.getCafeMachine(cafe.getId(),type));
+        }catch(Exception e){
+            return ResponseEntity.status(500).body("Error Empty order: " + e.getMessage());
+        }
     }
 }
