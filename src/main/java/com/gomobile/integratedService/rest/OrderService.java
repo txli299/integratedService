@@ -1,9 +1,7 @@
 package com.gomobile.integratedService.rest;
 
-import com.gomobile.integratedService.model.Machine;
-import com.gomobile.integratedService.model.Order;
-import com.gomobile.integratedService.model.OrderDto;
-import com.gomobile.integratedService.model.User;
+import com.gomobile.integratedService.model.*;
+import com.gomobile.integratedService.repo.CafeRepository;
 import com.gomobile.integratedService.repo.MachineRepository;
 import com.gomobile.integratedService.repo.UserRepository;
 
@@ -28,6 +26,7 @@ import lombok.AllArgsConstructor;
 public class OrderService {
   private final UserRepository _userRepository;
   private final MachineRepository _machineRepository;
+  private final CafeRepository _cafeRepository;
   private final TaskScheduler _taskScheduler;
 
   public void activateNewOrder(String userId, String mid) {
@@ -51,10 +50,11 @@ public class OrderService {
         user.addOrder(newOrder);
         // Set machine to activated
 
-        if (machine.getActivated() == true) {
+        if (machine.getActivated()) {
           throw new IllegalArgumentException("Machine has already got activated");
         }
         machine.setActivated(true);
+        updateCafe(machine.getCafeId(),mid);
 
         _machineRepository.save(machine);
         _userRepository.save(user);
@@ -67,6 +67,29 @@ public class OrderService {
     } else {
       throw new IllegalArgumentException("User is not existed");
     }
+  }
+
+  private void updateCafe(String cafeId, String mid){
+    Optional<Cafe> currCafe = _cafeRepository.findById(cafeId);
+
+    if (currCafe.isPresent()){
+      Cafe cafe = currCafe.get();
+      // Check if the cafe exists
+
+      // Update the activated status of the machine in the cafe
+      for (Machine cafeMachine : cafe.getMachines()) {
+        if (cafeMachine.getId().equals(mid)) {
+            cafeMachine.setActivated(!cafeMachine.getActivated());
+          break;  // Assuming each machine has a unique ID, so we can exit the loop
+        }
+      }
+
+      _cafeRepository.save(cafe);
+
+    }else {
+      throw new IllegalArgumentException("cafe is not existed");
+    }
+
   }
 
   public void emptyUserOrders(String userId) {
@@ -99,6 +122,7 @@ public class OrderService {
           // Set machine to unactivated
           Machine machine = currMachine.get();
           machine.setActivated(false);
+          updateCafe(machine.getCafeId(),machine.getId());
           _machineRepository.save(machine);
           // Update Order
           updatedOrder.setExpired(true);

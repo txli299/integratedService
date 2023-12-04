@@ -13,11 +13,13 @@ public class Machine {
     @Indexed(unique = true)
     private String name;
     private MachineType type;
+    private String cafeId;
     private Boolean activated;
 
-    public Machine(String name, MachineType type, Boolean activated) {
+    public Machine(String name, MachineType type, String cafeId, Boolean activated) {
         this.name = name;
         this.type = type;
+        this.cafeId = cafeId;
         this.activated = activated;
     }
 }
