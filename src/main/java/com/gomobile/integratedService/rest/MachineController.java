@@ -38,7 +38,7 @@ public class MachineController {
         if(machine.isPresent()){
             return machine.get();
         }else{
-            throw new IllegalArgumentException("Machine does not exist");
+            throw new IllegalArgumentException("Machine does not exist when get machine");
         }
     }
 
