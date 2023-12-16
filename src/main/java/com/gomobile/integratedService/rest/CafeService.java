@@ -24,7 +24,7 @@ public class CafeService {
             double distance = calculateDistance(coordinate, cafe.getCoordinate());
             cafe.setDistance(distance);
             List<MachineInfo> machInfo = cafeRepository.countActiveMachines(cafe.getName());
-            CafeDto cafeDto = new CafeDto(cafe.getId(), cafe.getName(), "Street 123",cafe.getDistance(), machInfo);
+            CafeDto cafeDto = new CafeDto(cafe.getId(), cafe.getName(), cafe.getAddress(), cafe.getDistance(), machInfo);
             nearestCafes.add(cafeDto);
         }
 

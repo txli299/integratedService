@@ -74,6 +74,23 @@ public class UserController {
         }
     }
 
+    @PostMapping("/user/{userId}")
+    public User updateUserCredit(@PathVariable String userId, @RequestBody User updatedUserDetails) {
+        // Jeff, this is Dinabang Changing this line
+        // This may need to change to findByUid
+        Optional<User> currUserOptional = userRepository.findByUid(userId);
+
+        if (currUserOptional.isPresent()) {
+            User currUser = currUserOptional.get();
+            // Update user details with the new values
+            currUser.setCredit(currUser.getCredit() + updatedUserDetails.getCredit());
+            // Save the updated user to the database
+            return userRepository.save(currUser);
+        } else {
+            throw new IllegalArgumentException("User does not exist");
+        }
+    }
+
     @PostMapping("/user/addUser")
     public User addUser(@RequestBody User user){
         return userRepository.save(user);

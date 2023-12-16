@@ -49,8 +49,8 @@ public class IntegratedServiceApplication  {
 //			machineList.add(machine1);
 //			machineList.add(machine2);
 //			machineList.add(machine3);
-//			Coordinate coordinate = new Coordinate(40.71,74.00);
-//			Cafe cafe1 = new Cafe("New York Cafe",coordinate,machineList);
+//			Coordinate coordinate = new Coordinate(42.36,-71.05);
+//			Cafe cafe1 = new Cafe("Boston Cafe",coordinate,machineList,"123 Street, Boston");
 //			cafe1.setId(cafe1Id);
 //			cafeRepository.insert(cafe1);
 //
@@ -66,8 +66,8 @@ public class IntegratedServiceApplication  {
 //			machineList2.add(machine4);
 //			machineList2.add(machine5);
 //			machineList2.add(machine6);
-//			Coordinate coordinate2 = new Coordinate(28.53,81.37);
-//			Cafe cafe2 = new Cafe("Orlando Cafe",coordinate2,machineList2);
+//			Coordinate coordinate2 = new Coordinate(28.53,-81.37);
+//			Cafe cafe2 = new Cafe("Orlando Cafe",coordinate2,machineList2,"456 Street, Orlando");
 //			cafe2.setId(cafe2Id);
 //			cafeRepository.insert(cafe2);
 //
@@ -83,8 +83,8 @@ public class IntegratedServiceApplication  {
 //			machineList3.add(machine7);
 //			machineList3.add(machine8);
 //			machineList3.add(machine9);
-//			Coordinate coordinate3 = new Coordinate(37.77,122.41);
-//			Cafe cafe3 = new Cafe("San Francisco Cafe",coordinate3,machineList3);
+//			Coordinate coordinate3 = new Coordinate(37.77,-122.41);
+//			Cafe cafe3 = new Cafe("San Francisco Cafe",coordinate3,machineList3,"789 Street, San Francisco");
 //			cafe3.setId(cafe3Id);
 //
 //			cafeRepository.insert(cafe3);

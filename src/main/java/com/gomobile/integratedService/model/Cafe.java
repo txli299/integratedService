@@ -16,11 +16,13 @@ public class Cafe {
     private String name;
     private Coordinate coordinate;
     private List<Machine> machines;
+    private String address;
     private double distance;
 
-    public Cafe(String name, Coordinate coordinate, List<Machine> machines) {
+    public Cafe(String name, Coordinate coordinate ,List<Machine> machines,String address) {
         this.name = name;
         this.coordinate = coordinate;
         this.machines = machines;
+        this.address = address;
     }
 }
